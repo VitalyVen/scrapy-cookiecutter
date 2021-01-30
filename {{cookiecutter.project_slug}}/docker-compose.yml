@@ -1,0 +1,83 @@
+version: '3.1'
+
+volumes:
+{%- if cookiecutter.sqlachemy_driver == 'mysql' %}
+  {{cookiecutter.project_slug}}-mysql-data: {}
+{%- endif %}
+{%- if cookiecutter.sqlachemy_driver == 'postgresql' %}
+  {{cookiecutter.project_slug}}_local_postgres_data: {}
+  {{cookiecutter.project_slug}}_local_postgres_data_backups: {}
+{%- endif %}
+  {{cookiecutter.project_slug}}_scrapyd_opt: {}
+  {{cookiecutter.project_slug}}_scrapyd_crontab: {}
+
+services:
+    {%- if cookiecutter.sqlachemy_driver == 'mysql' %}
+    mysql:
+      image: mysql:8.0
+      #restart: always
+      ports:
+        - 3308:3306
+      volumes:
+          - {{cookiecutter.project_slug}}-mysql-data:/var/lib/mysql/
+      env_file:
+        - envs/local/env
+    {%- endif %}
+    {%- if cookiecutter.sqlachemy_driver == 'postgresql' %}
+    postgres:
+      ports:
+        - 15432:5432
+      build:
+        context: .
+        dockerfile: ./compose/production/postgres/Dockerfile
+      image: {{cookiecutter.project_slug}}_production_postgres
+      container_name: {{cookiecutter.project_slug}}_production_postgres
+      volumes:
+        - {{cookiecutter.project_slug}}_local_postgres_data:/var/lib/postgresql/data:Z
+        - {{cookiecutter.project_slug}}_local_postgres_data_backups:/backups:z
+      env_file:
+        - envs/local/env
+    {%- endif %}
+    {%- if cookiecutter.use_celery_pipeline == "y" %}
+    redis:
+      image: redis:5.0
+      container_name: {{cookiecutter.project_slug}}_redis
+    {%- endif %}
+    scrapy:
+      image: {{cookiecutter.project_slug}}_scrapy
+      container_name: {{cookiecutter.project_slug}}_scrapy
+      ports:
+        - 6023:6023
+      working_dir: /app
+      build:
+        context: .
+        dockerfile: ./compose/local/scrapy/Dockerfile
+      command: sleep 100500
+      env_file:
+        - envs/local/env
+      volumes:
+        - ./:/app
+    {%- if cookiecutter.use_mitmweb == 'y' %}
+        - /etc/ssl/certs:/etc/ssl/certs:ro
+    mitmweb:
+      ports:
+        - 18080:8080
+        - 18081:8081
+      image: mitmproxy/mitmproxy
+      container_name: scraper_mitmweb
+      command: mitmweb --web-host 0.0.0.0 --rawtcp --proxyauth docker:docker
+    {%- endif %}
+    scrapyd:
+      build:
+        context: .
+        dockerfile: ./compose/production/scrapyd/Dockerfile
+      volumes:
+        - {{cookiecutter.project_slug}}_scrapyd_opt:/opt/scrapyd/:Z
+        - {{cookiecutter.project_slug}}_scrapyd_crontab:/etc/crontab.d/:Z
+      image: {{cookiecutter.project_slug}}_scrapyd
+      container_name: {{cookiecutter.project_slug}}_scrapyd
+      ports:
+        - 6800:6800
+      command: scrapyd
+      env_file:
+        - envs/local/env
