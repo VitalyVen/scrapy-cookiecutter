@@ -8,9 +8,11 @@ This cookie cutter is boilerplate builder for starting a scrapy project have sup
 **Features:**
 
 - Simple scrapy project with Sqlalchemy pipiline (Postgres/mysql available)
-- Docker-compose
-- Scrapyd
-- Integrated crontab for schedule spiders (option)
+- Docker support using docker-compose for development
+- Run tests with pytest
+- Default integration with pre-commit for identifying simple issues before submission
+- Scrapyd integration
+- Integrated crontab task for schedule spiders with scrapyd(option)
 - Integrated celery pipeline (option)
 - Use mitmweb for check scraper response or reverse something (optional)
 - Debug your spiders by launching main function of spider in Pycharm
