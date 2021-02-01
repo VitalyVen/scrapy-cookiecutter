@@ -5,11 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
-cookiecutter = "*"
 pytest-cookies = "*"
 pre-commit = "*"
 
 [packages]
+cookiecutter = "*"
 
 [requires]
 python_version = "3.8"
