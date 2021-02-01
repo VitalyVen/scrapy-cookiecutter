@@ -29,6 +29,7 @@ Step 3: Follow instructions in ReadMe of generated project
 
 
 ## Roadmap
+auto-install requirements from setup.py on deploy stage, not docker build https://github.com/scrapy/scrapyd/pull/269
 async reactor
 pycharm integration
 sqlalchemy backends
@@ -39,4 +40,3 @@ selenium?
 full settings
 split scheduler into no/cron/scrapydweb/etc
 use_docker
-

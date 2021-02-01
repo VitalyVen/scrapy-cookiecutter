@@ -41,6 +41,9 @@ Deploy spider to scrapyd container
 Schedule one task with scrapyd
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $ docker-compose run scrapy curl http://scrapyd:6800/schedule.json -d project={{cookiecutter.project_slug}} -d spider=spider{% if cookiecutter.scheduler=='cron' %}
+
+    Note: if you add requirements after build, it should not be installed because of https://github.com/scrapy/scrapyd/issues/246, rebuild scrapyd image first
+
 Schedule task with cron
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $ docker-compose run scrapyd bash /cronjob.sh
