@@ -2,8 +2,8 @@
 
 {{cookiecutter.description}}
 
-.. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Scrapy-b4ff69.svg?logo=cookiecutter
-     :target: https://github.com/VitalyVen/cookiecutter-scrapy
+.. image:: https://img.shields.io/badge/built%20with-Scrapy%20Cookiecutter-b4ff69.svg?logo=cookiecutter
+     :target: https://github.com/VitalyVen/scrapy-cookiecutter
      :alt: Built with Cookiecutter Scrapy
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
      :target: https://github.com/ambv/black
