@@ -106,7 +106,7 @@ def main():
         remove_dir("celery")
     if "{{ cookiecutter.scheduler }}".lower() != "cron":
         remove_file("compose/production/scrapyd/cronjob.sh")
-    if "Not open source" == "{{ cookiecutter.license }}":
+    if "{{ cookiecutter.license }}" == "Not open source":
         remove_file("LICENSE")
     if "{{ cookiecutter.scheduler }}" != "scrapydweb":
         remove_dir(os.path.join("compose", "production", "scrapydweb"))
