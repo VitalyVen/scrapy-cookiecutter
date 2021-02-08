@@ -78,6 +78,22 @@ services:
       container_name: {{cookiecutter.project_slug}}_scrapyd
       ports:
         - 6800:6800
-      command: scrapyd
+      {%- if cookiecutter.scheduler == 'scrapydweb' %}
+      command: ["logparser", "scrapyd"]
+      {% endif %}
       env_file:
-        - envs/local/env
+        - envs/local/env{%- if cookiecutter.scheduler == 'scrapydweb' %}
+    scrapydweb:
+      build:
+        context: .
+        dockerfile: ./compose/production/scrapydweb/Dockerfile
+      volumes:
+        - ./compose/production/scrapydweb/scrapydweb_settings_v10.py:/app/scrapydweb_settings_v10.py:z
+      image: {{cookiecutter.project_slug}}_scrapydweb
+      working_dir: /app
+      container_name: {{cookiecutter.project_slug}}_scrapydweb
+      ports:
+        - 5005:5000
+      command: scrapydweb #TODO: wait-for.sh
+      env_file:
+        - envs/local/env{%- endif %}

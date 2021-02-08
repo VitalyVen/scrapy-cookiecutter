@@ -1,21 +1,33 @@
 {
-    "project_name": "crawler",
-    "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
-    "author_name": "Vitaly Ven",
-    "description": "Scrapy project built with https://github.com/VitalyVen/cookiecutter-scrapy.",
-    "scheduler": ["n", "cron"],
-    "use_celery_pipeline": "n",
-    "use_mitmweb": "n",
-    "sqlachemy_driver":[
-        "postgresql",
-        "mysql"
-    ],
-    "postgresql_version": [
-        "12.3",
-        "11.8",
-        "10.8",
-        "9.6",
-        "9.5"
-      ],
-    "license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+  "project_name": "crawler",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
+  "author_name": "Vitaly Ven",
+  "description": "Scrapy project built with https://github.com/VitalyVen/cookiecutter-scrapy.",
+  "scheduler": [
+    "scrapydweb",
+    "cron",
+    "n"
+  ],
+  "use_celery_pipeline": "n",
+  "use_mitmweb": "n",
+  "sqlachemy_driver": [
+    "postgresql",
+    "mysql"
+  ],
+  "postgresql_version": [
+    "13.1",
+    "12.3",
+    "11.8",
+    "10.8",
+    "9.6",
+    "9.5"
+  ],
+  "license": [
+    "MIT license",
+    "BSD license",
+    "ISC license",
+    "Apache Software License 2.0",
+    "GNU General Public License v3",
+    "Not open source"
+  ]
 }

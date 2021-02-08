@@ -50,4 +50,8 @@ Schedule task with cron
 
 Edit cron task
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    $ docker-compose run scrapyd crontab -e{% endif %}
+    $ docker-compose run scrapyd crontab -e{% endif %}{% if cookiecutter.scheduler=='scrapydweb' %}
+
+Open scrapydweb web page to schedule your spider (do not forget deploy spider first)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $ xdg-open http://localhost:5005{% endif %}

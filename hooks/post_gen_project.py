@@ -91,8 +91,8 @@ def remove_celery_files():
         os.remove(file_name)
 
 
-def remove_celery_dirs():
-    shutil.rmtree(os.path.join("{{ cookiecutter.project_slug }}", "celery"))
+def remove_dir(dir_relpath):
+    shutil.rmtree(os.path.join("{{ cookiecutter.project_slug }}", dir_relpath))
 
 
 def remove_file(filepath):
@@ -103,11 +103,13 @@ def main():
 
     if "{{ cookiecutter.use_celery_pipeline }}".lower() == "n":
         remove_celery_files()
-        remove_celery_dirs()
+        remove_dir("celery")
     if "{{ cookiecutter.scheduler }}".lower() != "cron":
         remove_file("compose/production/scrapyd/cronjob.sh")
     if "Not open source" == "{{ cookiecutter.license }}":
         remove_file("LICENSE")
+    if "{{ cookiecutter.scheduler }}" != "scrapydweb":
+        remove_dir(os.path.join("compose", "production", "scrapydweb"))
 
 
 if __name__ == "__main__":
