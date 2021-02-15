@@ -77,10 +77,8 @@ services:
       image: {{cookiecutter.project_slug}}_scrapyd
       container_name: {{cookiecutter.project_slug}}_scrapyd
       ports:
-        - 6800:6800
-      {%- if cookiecutter.scheduler == 'scrapydweb' %}
-      command: ["logparser", "scrapyd"]
-      {% endif %}
+        - 6800:6800{%- if cookiecutter.scheduler == 'scrapydweb' %}
+      command: ["logparser", "scrapyd"]{% endif %}
       env_file:
         - envs/local/env{%- if cookiecutter.scheduler == 'scrapydweb' %}
     scrapydweb:

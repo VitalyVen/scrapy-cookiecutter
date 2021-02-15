@@ -108,6 +108,8 @@ def main():
         remove_file("compose/production/scrapyd/cronjob.sh")
     if "{{ cookiecutter.license }}" == "Not open source":
         remove_file("LICENSE")
+    if "{{ cookiecutter.db_driver }}" != "sqlachemy(sync)":
+        remove_file(os.path.join("{{ cookiecutter.project_slug }}", "models", "sessions.py"))
     if "{{ cookiecutter.scheduler }}" != "scrapydweb":
         remove_dir(os.path.join("compose", "production", "scrapydweb"))
 

@@ -3,10 +3,18 @@
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
   "author_name": "Vitaly Ven",
   "description": "Scrapy project built with https://github.com/VitalyVen/cookiecutter-scrapy.",
+  "async_reactor": [
+    "asyncio",
+    "n"
+  ],
   "scheduler": [
     "scrapydweb",
     "cron",
     "n"
+  ],
+  "db_driver": [
+    "gino(async)",
+    "sqlachemy(sync)"
   ],
   "use_celery_pipeline": "n",
   "use_mitmweb": "n",

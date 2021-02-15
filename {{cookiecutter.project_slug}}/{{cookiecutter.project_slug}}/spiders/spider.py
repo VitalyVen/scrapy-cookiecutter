@@ -5,6 +5,7 @@ import scrapy
 from scrapy import Request
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+from scrapy.utils.reactor import install_reactor
 
 sys.path.append("../..")
 from {{cookiecutter.project_slug}}.items import QuoteItem  # noqa: E402
@@ -16,11 +17,12 @@ class Spider(scrapy.Spider):
     allowed_domains = [urlparse(url).netloc for url in start_urls]
     referer = start_urls[0]
 
-    # custom_settings = {
-    #     "ITEM_PIPELINES": {
-    #         "pipelines.celery.CeleryPipeline": 100,
-    #     },
-    # }
+    custom_settings = {
+        "ITEM_PIPELINES": {
+            "{{cookiecutter.project_slug}}.pipelines.pipelines.DBPipeline": 300,
+        },
+    }
+
     def start_requests(self):
         for url in self.start_urls:
             yield Request(
@@ -41,6 +43,10 @@ class Spider(scrapy.Spider):
 
 
 if __name__ == "__main__":
-    process = CrawlerProcess(get_project_settings())
+    settings = get_project_settings()
+    {%- if cookiecutter.async_reactor != "n" %}
+    install_reactor(settings["TWISTED_REACTOR"])
+    {%- endif %}
+    process = CrawlerProcess()
     process.crawl(Spider)
     process.start()  # the script will block here until the crawling is finished

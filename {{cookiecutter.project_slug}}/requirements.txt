@@ -1,15 +1,27 @@
 Scrapy
 scrapyd
+{%- if cookiecutter.db_driver == 'sqlachemy(sync)'%}
 sqlalchemy
+{%- endif %}
+{%- if cookiecutter.db_driver == 'gino(async)'%}
+gino
+gino-starlette
+uvicorn
+fastapi
+pydantic
+aiomisc
+{%- endif %}
 {%- if cookiecutter.sqlachemy_driver == 'mysql' %}
 mysqlclient
 {%- endif %}
 
-{%- if cookiecutter.sqlachemy_driver == 'postgresql' %}
+{%- if cookiecutter.sqlachemy_driver == 'postgresql' and cookiecutter.db_driver == 'sqlachemy(sync)'%}
 psycopg2-binary
 {%- endif %}
+{%- if cookiecutter.sqlachemy_driver == 'postgresql' and cookiecutter.db_driver == 'gino(async)'%}
+asyncpg
+{%- endif %}
 requests
-
 {%- if cookiecutter.use_celery_pipeline == "y" %}
 redis
 celery

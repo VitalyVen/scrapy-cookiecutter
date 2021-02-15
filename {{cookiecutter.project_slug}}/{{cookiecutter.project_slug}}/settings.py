@@ -71,7 +71,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "{{cookiecutter.project_slug}}.pipelines.pipelines.SQLAlchemyPipeline": 300,
+    "{{cookiecutter.project_slug}}.pipelines.pipelines.DBPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -109,4 +109,7 @@ DB = {
 
 {%- if cookiecutter.use_celery_pipeline == "y" %}
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
+{%- endif %}
+{%- if cookiecutter.async_reactor != "n" %}
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 {%- endif %}
