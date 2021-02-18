@@ -65,7 +65,17 @@ services:
         - 18081:8081
       image: mitmproxy/mitmproxy
       container_name: scraper_mitmweb
-      command: mitmweb --web-host 0.0.0.0 --rawtcp --proxyauth docker:docker
+      command: mitmweb --web-host 0.0.0.0 --rawtcp --proxyauth docker:docker{%- if cookiecutter.use_tor_privoxy == "y" %} --mode upstream:http://tor-privoxy:8118
+        {%- endif %}
+    {%- endif %}
+    {%- if cookiecutter.use_tor_privoxy == 'y' %}
+    tor-privoxy:
+      restart: always
+      image: dockage/tor-privoxy:latest
+      ports:
+        - "3053:9050" # Tor proxy
+        - "3052:9051" # Tor control port
+        - "8128:8118" # Privoxy
     {%- endif %}
     scrapyd:
       build:

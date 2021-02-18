@@ -30,7 +30,9 @@ class Spider(scrapy.Spider):
                 headers={"Referer": self.referer},
                 callback=self.parse,
                 {%- if cookiecutter.use_mitmweb == "y" %}
-                meta={"proxy": "http://docker:docker@mitmweb:8080"},
+                meta={"proxy": "http://docker:docker@mitmweb:8080"},#if tor_privoxy was choosen, upstrem is setted up to tor_proxy
+                {%- elif cookiecutter.use_tor_privoxy == "y" %}
+                meta = {"proxy": "http://tor-privoxy:8118"},#tor via privoxy
                 {%- endif %}
             )
 

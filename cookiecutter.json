@@ -22,6 +22,8 @@
     "postgresql",
     "mysql"
   ],
+
+  "use_tor_privoxy": "n",
   "postgresql_version": [
     "13.1",
     "12.3",
