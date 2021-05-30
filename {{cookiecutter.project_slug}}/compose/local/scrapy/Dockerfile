@@ -10,8 +10,9 @@ RUN apt-get update \
   && rm -f /var/cache/apt/archives/*.deb
 
 # Requirements are installed here to ensure they will be cached.
-COPY ./requirements_dev.txt /requirements_dev.txt
 COPY ./requirements.txt /requirements.txt
+COPY ./requirements_dev.txt /requirements_dev.txt
+
 
 RUN pip install -r /requirements_dev.txt
 EXPOSE 6023
