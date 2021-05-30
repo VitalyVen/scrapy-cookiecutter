@@ -1,7 +1,7 @@
-Scrapy
-scrapyd
+Scrapy==2.4.1
+scrapyd==1.2.1
 {%- if cookiecutter.db_driver == 'sqlachemy(sync)'%}
-sqlalchemy
+sqlalchemy==1.3.23
 {%- endif %}
 {%- if cookiecutter.db_driver == 'gino(async)'%}
 gino
@@ -16,16 +16,16 @@ mysqlclient
 {%- endif %}
 
 {%- if cookiecutter.sqlachemy_driver == 'postgresql' and cookiecutter.db_driver == 'sqlachemy(sync)'%}
-psycopg2-binary
+psycopg2-binary==2.8.6
 {%- endif %}
 {%- if cookiecutter.sqlachemy_driver == 'postgresql' and cookiecutter.db_driver == 'gino(async)'%}
 asyncpg
 {%- endif %}
-requests
+requests==2.25.1
 {%- if cookiecutter.use_celery_pipeline == "y" %}
 redis
 celery
 {%- endif %}
 {%- if cookiecutter.scheduler == "scrapydweb" %}
-logparser
+logparser==0.8.2
 {%- endif %}

@@ -17,7 +17,7 @@
 Basic Commands
 --------------
 
-Install project dependencies
+Install project dependencies (optional, if you develop without docker)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     $ ./dev.sh
