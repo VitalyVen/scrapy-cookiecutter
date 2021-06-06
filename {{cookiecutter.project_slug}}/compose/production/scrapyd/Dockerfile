@@ -9,7 +9,7 @@ COPY ./compose/production/scrapyd/cronjob.sh /cronjob.sh
 RUN \
     DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get install -y --no-install-recommends build-essential curl\
+    && apt-get install -y --no-install-recommends build-essential curl git \
     {%- if cookiecutter.scheduler == 'cron' %}
     cron nano\
     {%- endif %}

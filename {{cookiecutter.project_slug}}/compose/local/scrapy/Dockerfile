@@ -3,7 +3,7 @@ RUN apt-get update \
   # dependencies for building Python packages
   && apt-get install -y --no-install-recommends build-essential \
   # psycopg2 dependencies
-  && apt-get install -y libpq-dev curl\
+  && apt-get install -y libpq-dev curl git\
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/* \

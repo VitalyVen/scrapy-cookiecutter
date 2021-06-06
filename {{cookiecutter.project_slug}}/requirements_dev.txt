@@ -1,6 +1,4 @@
 -r requirements.txt
-#deploy
-scrapyd-client==1.1.0
 #run hooks
 pre-commit
 #Code quality
