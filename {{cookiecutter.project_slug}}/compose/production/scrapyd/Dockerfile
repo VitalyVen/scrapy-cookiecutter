@@ -13,11 +13,14 @@ RUN \
     {%- if cookiecutter.scheduler == 'cron' %}
     cron nano\
     {%- endif %}
-    && pip3 install -r /requirements.txt \
-    && pip3 install scrapyd \
     && apt-get clean autoclean \
     && apt-get autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /var/cache/apt/archives/*.deb \
     # Remove temporary files owned by root from the platformtemplate step
     && rm /tmp/* ||true
+COPY . .
+RUN pip3 install -r /requirements.txt
+RUN scrapyd& scrapyd-deploy localhost && rm twistd.pid
+CMD ["sh", "-c", "logparser& scrapyd"]
+#TODO: warning: multiple processes in one docker
