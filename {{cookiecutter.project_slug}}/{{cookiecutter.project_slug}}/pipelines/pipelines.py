@@ -5,10 +5,11 @@ import asyncio
 {%- if cookiecutter.db_driver == "sqlachemy(sync)" %}
 from {{cookiecutter.project_slug}}.models.sessions import session
 {% endif %}
-from {{cookiecutter.project_slug}}.models.models import AuthorModel, QuoteModel, db, setup_db
+
 
 
 {%- if cookiecutter.db_driver == "sqlachemy(sync)" %}
+from {{cookiecutter.project_slug}}.models.models import AuthorModel, QuoteModel
 class DBPipeline:
     """Pipeline to save uniq authors (consider name is unique key), save all quotes (dupls allowed)"""
 
@@ -32,7 +33,7 @@ class DBPipeline:
         return item
 {% endif %}
 {%- if cookiecutter.db_driver == "gino(async)" %}
-
+from {{cookiecutter.project_slug}}.models.models import AuthorModel, QuoteModel, db, setup_db
 
 async def main():
     await setup_db()
