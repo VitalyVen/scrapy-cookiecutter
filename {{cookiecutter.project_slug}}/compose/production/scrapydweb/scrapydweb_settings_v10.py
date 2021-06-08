@@ -48,7 +48,7 @@ PASSWORD = "docker"
 
 
 SCRAPYD_SERVERS = [
-    "scrapyd:6800",
+    "docker:docker@scrapyd:6800",
 ]
 # LOCAL_SCRAPYD_SERVER = SCRAPYD_SERVERS[0]
 # It"s recommended to update the three options below
