@@ -89,7 +89,12 @@ services:
       ports:
         - 6800:6800
       env_file:
-        - envs/local/env{%- if cookiecutter.scheduler == 'scrapydweb' %}
+        - envs/local/env
+      healthcheck:
+        test: [ "CMD", "curl", "-f", "http://localhost:6800" ]
+        interval: 1s
+        timeout: 10s
+        retries: 20{%- if cookiecutter.scheduler == 'scrapydweb' %}
     scrapydweb:
       build:
         context: .
@@ -103,4 +108,9 @@ services:
         - 5005:5000
       command: scrapydweb #TODO: wait-for.sh
       env_file:
-        - envs/local/env{%- endif %}
+        - envs/local/env
+      restart: on-failure
+      depends_on:
+        - scrapyd
+      links:
+        - scrapyd{%- endif %}
