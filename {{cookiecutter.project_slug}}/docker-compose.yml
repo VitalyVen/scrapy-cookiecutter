@@ -64,7 +64,7 @@ services:
         - 18080:8080
         - 18081:8081
       image: mitmproxy/mitmproxy
-      container_name: scraper_mitmweb
+      container_name: {{cookiecutter.project_slug}}_mitmweb
       command: mitmweb --web-host 0.0.0.0 --rawtcp --proxyauth docker:docker{%- if cookiecutter.use_tor_privoxy == "y" %} --mode upstream:http://tor-privoxy:8118
         {%- endif %}
     {%- endif %}
