@@ -1,11 +1,11 @@
-# scrapy-cookiecutter
+# Scrapy-cookiecutter
 
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter). scrapy-cookiecutter is a framework for jumpstarting Scrapy projects quickly.
 
 ## Introduction
 This cookie cutter is boilerplate builder for starting a scrapy project have support sqlachemy (mysql/postrges) pipeline. It comes with basic project structure and configuration.
 
-**Features:**
+## Features
 
 - Simple scrapy project with Sqlalchemy pipiline (Postgres/mysql available)
 - Docker support using docker-compose for development
@@ -31,14 +31,22 @@ Step 3: Follow instructions in ReadMe of generated project
 
 
 ## Roadmap
-auto-install requirements from setup.py on deploy stage, not docker build https://github.com/scrapy/scrapyd/pull/269
-async reactor
-pycharm integration
-sqlalchemy backends
-pip/pipenv
-splash
-pupeeter
-selenium?
-full settings
-split scheduler into no/cron/scrapydweb/etc
-use_docker
+* other scheduler
+* playwright
+* pupeeter
+* pycharm integration
+* all sqlalchemy backends
+* pip/poetry
+* selenium?
+* full settings
+* itemadapter
+
+```
+#https://docs.scrapy.org/en/latest/topics/coroutines.html#coroutine-support
+from itemadapter import ItemAdapter
+class DbPipeline:
+    async def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        adapter['field'] = await db.get_some_data(adapter['id'])
+        return item
+```
