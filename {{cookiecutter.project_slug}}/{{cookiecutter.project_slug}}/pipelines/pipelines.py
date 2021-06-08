@@ -6,8 +6,6 @@ import asyncio
 from {{cookiecutter.project_slug}}.models.sessions import session
 {% endif %}
 
-
-
 {%- if cookiecutter.db_driver == "sqlachemy(sync)" %}
 from {{cookiecutter.project_slug}}.models.models import AuthorModel, QuoteModel
 class DBPipeline:
@@ -30,10 +28,10 @@ class DBPipeline:
         quote.content = item.get("content")
         session.add(quote)
         session.commit()
-        return item
-{% endif %}
+        return item{% endif %}
 {%- if cookiecutter.db_driver == "gino(async)" %}
 from {{cookiecutter.project_slug}}.models.models import AuthorModel, QuoteModel, db, setup_db
+
 
 async def main():
     await setup_db()
@@ -56,5 +54,4 @@ class DBPipeline:
         return item
 
     async def close_spider(self, spider):
-        await db.pop_bind().close()
-{% endif %}
+        await db.pop_bind().close(){% endif %}

@@ -20,7 +20,10 @@ RUN \
     # Remove temporary files owned by root from the platformtemplate step
     && rm /tmp/* ||true
 COPY . .
+RUN mkdir -p /var/lib/scrapyd/logs
 RUN pip3 install -r /requirements.txt
-RUN scrapyd& scrapyd-deploy localhost && rm twistd.pid
-CMD ["sh", "-c", "logparser& scrapyd"]
+COPY . .
+RUN pip3 install ./compose/production/scrapyd/async_scrapyd/
+RUN scrapyd& scrapyd-deploy localhost && rm -f twistd.pid
+CMD ["sh", "-c", "logparser -dir /var/lib/scrapyd/logs & scrapyd"]
 #TODO: warning: multiple processes in one docker
