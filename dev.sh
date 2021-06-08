@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-docker -v
+docker -v || echo "install docker to use it"
 git --version >> /dev/null || sudo apt install git -y
-pipenv --version > /dev/null || sudo apt install pipenv -y
-pipenv install --dev
+poetry --version > /dev/null || "install poetry first with pip3 install poetry"
+poetry install
 pre-commit install

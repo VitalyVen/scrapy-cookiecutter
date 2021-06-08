@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "scrapy-cookiecutter"
+version = "0.1.0"
+description = ""
+authors = ["vitalyven <16899212+VitalyVen@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cookiecutter = "^1.7.3"
+Scrapy = "^2.5.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+pre-commit = "^2.13.0"
+pytest-cookies = "^0.6.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
